@@ -13,7 +13,9 @@ var (
 	rootCmd = &cobra.Command{
 		Use:   "register",
 		Short: "register an account",
-		Long:  "",
+		Run: func(cmd *cobra.Command, args []string) { // OnInitialize is called first
+			fmt.Println(viper.AllKeys())
+		},
 	}
 )
 
@@ -27,6 +29,7 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initialiseConfigs)
+
 	fmt.Println("initialising...")
 }
 
