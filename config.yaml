@@ -1,0 +1,8 @@
+Persistance:
+  Postgres:
+    Server: "http://localhost"
+    Port: 5430
+    User : "postgres"
+    PassWord: "password"
+API:
+  Port: 8081

@@ -1,0 +1,64 @@
+openapi: '3.0.2'
+info:
+  title: API Title
+  version: '1.0'
+servers:
+  - url: http://localhost:8081
+paths:
+  /accounts/register:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/RegiserRequestBody'
+
+      responses:
+        '200':
+          description: OK
+          content:
+              application/json:
+                schema: 
+                  $ref: '#/components/schemas/RegiserResponse'
+
+components:
+  schemas:
+    RegiserRequestBody:
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: Doe
+        email:
+          type: string
+          format: email
+          example: john@example.com
+    RegiserResponse:
+      type: object
+      properties:
+        info:
+            $ref:  '#/components/schemas/Info'
+        payload:
+           $ref:  '#/components/schemas/Payload'
+    Info:
+      type: object
+      properties:
+        name: 
+          type: string
+        timeStamp:
+          type: string
+          format: timeStamp
+    Payload:
+      type: array
+      items:
+        $ref:  '#/components/schemas/RegisterReponse'
+    RegisterReponse:
+      type: object
+      properties:
+        accountId:
+          type: integer
+          format: int64
+     
