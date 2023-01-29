@@ -1,7 +1,6 @@
 package openapi
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -13,15 +12,26 @@ type Server struct {
 	ct time.Time
 }
 
+type Config struct {
+	Persistance Persistance
+	HTTP        HTTP
+}
+type HTTP struct {
+	Port   int
+	Prefix string
+}
+type Persistance struct {
+	Driver   string
+	Server   string
+	Port     int
+	User     string
+	Password string
+}
+
 func NewServer(ct time.Time) Server {
 	return Server{
 		ct: ct,
 	}
-}
-
-func (s Server) PostAccountsRegister(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("PostAccountsRegister api  works")
-
 }
 
 func RunHTTPServer(addr string, s Server, prefixPath string) (err error) {
