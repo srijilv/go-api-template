@@ -1,0 +1,51 @@
+openapi: "3.0.2"
+info:
+  title: "API Service"
+  version: "1.0"
+servers:
+  - url: http://localhost:8921
+paths:
+  /v1/learning/books:
+    get:
+      operationId: listBooks
+      summary: List Books
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            format: int16
+          required: true
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            format: int16
+          required: true
+      responses:
+        "200":
+          description: books listed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "./list_books.yml#/components/schemas/ListBooksResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yml#/components/schemas/ErrorResponse"
+
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yml#/components/schemas/ErrorResponse"
+
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "./common.yml#/components/schemas/ErrorResponse"

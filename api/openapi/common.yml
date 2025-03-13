@@ -1,0 +1,44 @@
+components:
+  schemas:
+    Information:
+      required:
+        - "version"
+        - "name"
+        - "timestamp"
+      type: object
+      properties:
+        version:
+          type: string
+          example: "1.0"
+        name:
+          type: string
+          example: "Appointment Proxy"
+        timestamp:
+          type: number
+          format: float
+          example: 1621324466.289974
+    Error:
+      required:
+      - "code"
+      - "component"
+      - "message"
+      properties:
+        code:
+          type: integer
+          format: int16
+          example: 404
+        component: 
+          type: string
+          example: appointmentProxy
+        message:
+          type: string
+          example: provider not found
+    ErrorResponse:
+      required:
+      - "info"
+      - "error"
+      properties:
+        info:
+         $ref: "#/components/schemas/Information"
+        error:
+         $ref: "#/components/schemas/Error"
