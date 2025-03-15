@@ -1,0 +1,19 @@
+Observability Stack Overview
+--------------------------------------------------
+Metrics
+    Collection: Grafana Agent (DaemonSet)
+    Backend: Prometheus
+    Query Language: PromQL
+Logs
+    Collection: Promtail (DaemonSet)
+    Backend: Loki (S3)
+    Query Language: LogQL
+Traces
+    Collection: OpenTelemetry Collector (DaemonSet)
+    Backend: Tempo (S3)
+    Query Language: TraceQL
+    
+Grafana Integration
+    Data Sources: Loki, Prometheus, Tempo
+    Features: Dashboards, Alert Manager
+
