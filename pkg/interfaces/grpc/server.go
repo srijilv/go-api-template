@@ -4,13 +4,13 @@ import (
 	"time"
 
 	"github.com/srijilv/go-api-template.git/pkg/application"
-	"github.com/srijilv/go-api-template.git/pkg/interfaces/openapi/common"
+	"github.com/srijilv/go-api-template.git/pkg/interfaces/grpc/common"
 )
 
 const (
 	ApiVersion    = "1.0"
 	layer         = "interfaces"
-	interfaceType = "openapi"
+	interfaceType = "grpc"
 )
 
 type Server struct {

@@ -9,6 +9,9 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
 	"github.com/jackc/pgx/v4/pgxpool"
+	"github.com/labstack/gommon/log"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 
 	"github.com/sirupsen/logrus"
 	"github.com/srijilv/go-api-template.git/db"
@@ -59,4 +62,25 @@ func RunHTTPServerOnAddr(addr string, createHandler func(router chi.Router) http
 	if err != nil {
 		logrus.WithError(err).Panic("Unable to start HTTP server")
 	}
+}
+
+func grpcClientDial(key string) (conn *grpc.ClientConn) {
+	log.Info("trying to dial client grpc for app clients")
+	grpcClients := getGRPCClient(key)
+
+	var interceptor grpc.DialOption
+
+	conn, err := grpc.NewClient(grpcClients,
+		grpc.WithTransportCredentials(insecure.NewCredentials()), interceptor,
+		// grpc.WithStatsHandler(otelgrpc.NewClientHandler())
+	)
+	if err != nil {
+		panic(err)
+	}
+
+	return
+}
+
+func getGRPCClient(key string) (client string) {
+	return
 }
