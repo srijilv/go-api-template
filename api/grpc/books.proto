@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package grpc;
+
+option go_package = "github.com/srijilv/go-api-template.git/pkg/interfaces/grpc";
+
+import "api/grpc/list-books.proto";
+
+service BooksService {
+    rpc Listbooks(listbooks.ListBooksRequest) returns (listbooks.ListBooksResponse);   
+}
