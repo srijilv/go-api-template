@@ -25,14 +25,14 @@ func (s Server) ListBooks(w http.ResponseWriter, r *http.Request, params ListBoo
 
 	info, apiInfoErr := createInfo(s.ct, "List books")
 
-	books, err := s.booksService.ListBooks(r.Context())
+	records, err := s.booksService.ListBooks(r.Context(), params.Page, params.Limit)
 	if err != nil {
 		apierror.RespondWithApiError(err, apiInfoErr, w, r)
 		return
 	}
 
 	listBooks := listbooks.ListBooksResponse{}
-	listBooks.Unmarshal(books, info)
+	listBooks.Unmarshal(records, info)
 
 	render.Status(r, http.StatusOK)
 	if err = s.renderer(w, r, listBooks); err != nil {

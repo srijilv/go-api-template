@@ -1,7 +1,9 @@
 package books
 
-import "context"
+import (
+	"context"
+)
 
 type BookStorageRepository interface {
-	ListBooks(ctx context.Context) (err error)
+	ListBooks(ctx context.Context, page, limit int32) (books []Books, err error)
 }

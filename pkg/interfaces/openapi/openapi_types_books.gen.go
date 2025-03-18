@@ -5,6 +5,6 @@ package openapi
 
 // ListBooksParams defines parameters for ListBooks.
 type ListBooksParams struct {
-	Page  int16 `form:"page" json:"page"`
-	Limit int16 `form:"limit" json:"limit"`
+	Page  int32 `form:"page" json:"page"`
+	Limit int32 `form:"limit" json:"limit"`
 }

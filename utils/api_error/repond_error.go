@@ -50,10 +50,6 @@ func NotFound(code int, component string, err error, info Information, w http.Re
 }
 
 func httpRespondWithError(err error, code int, component string, info Information, w http.ResponseWriter, r *http.Request, logMsg string, status int, resetComponent bool) {
-	// logs.GetLogEntry(r).WithError(err).WithFields(logrus.Fields{
-	// 	"code":      code,
-	// 	"component": component,
-	// }).Warn(logMsg)
 
 	if resetComponent {
 		component = ""
