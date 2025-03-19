@@ -24,7 +24,7 @@ type localDbConn struct {
 }
 
 func (l localDbConn) GetPgSqlConnectionPool(ctx context.Context, dbName string) (db.PgxIface, error) {
-	dsn := fmt.Sprintf("postgres://postgres:pass@localhost:5432/%s", dbName)
+	dsn := fmt.Sprintf("postgres://postgres:pass@postgresdb:5432/%s", dbName)
 	pool, err := pgxpool.Connect(ctx, dsn)
 	if err != nil {
 		return nil, fmt.Errorf("unable to create connection pool: %w", err)
@@ -39,7 +39,7 @@ func main() {
 	serviceServer := openapi.NewServer(bookService, render.Render, time.Now())
 
 	RunHTTPServerOnAddr(
-		"localhost:8921",
+		"0.0.0.0:8080",
 		func(router chi.Router) http.Handler {
 			return openapi.HandlerFromMux(serviceServer, router)
 		},

@@ -1,6 +1,6 @@
 module github.com/srijilv/go-api-template.git
 
-go 1.22.5
+go 1.22.0
 
 require (
 	github.com/deepmap/oapi-codegen v1.16.3
