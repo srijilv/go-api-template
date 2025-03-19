@@ -5,6 +5,8 @@ import (
 
 	"github.com/jackc/pgx/v4"
 	"github.com/labstack/gommon/log"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type PgxIface interface {
@@ -27,3 +29,7 @@ func (p PoolTxWrapper) Begin(ctx context.Context) (pgx.Tx, error) {
 }
 
 func (p PoolTxWrapper) Close() {}
+
+type ClientProvider interface {
+	GetMongoDbClient(ctx context.Context, opts ...*options.ClientOptions) (*mongo.Client, error)
+}

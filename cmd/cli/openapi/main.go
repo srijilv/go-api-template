@@ -10,6 +10,8 @@ import (
 	"github.com/go-chi/render"
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/labstack/gommon/log"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
@@ -30,6 +32,26 @@ func (l localDbConn) GetPgSqlConnectionPool(ctx context.Context, dbName string) 
 		return nil, fmt.Errorf("unable to create connection pool: %w", err)
 	}
 	return pool, nil
+}
+
+func (l localDbConn) GetMongoDbClient(ctx context.Context, opts ...*options.ClientOptions) (*mongo.Client, error) {
+	var clientOptions *options.ClientOptions
+	if len(opts) > 0 {
+		clientOptions = opts[0]
+	} else {
+		clientOptions = options.Client().ApplyURI("mongodb://localhost:27017")
+	}
+
+	client, err := mongo.Connect(ctx, clientOptions)
+	if err != nil {
+		return nil, fmt.Errorf("unable to connect to MongoDB: %w", err)
+	}
+
+	if err := client.Ping(ctx, nil); err != nil {
+		return nil, fmt.Errorf("unable to ping MongoDB: %w", err)
+	}
+
+	return client, nil
 }
 
 func main() {
